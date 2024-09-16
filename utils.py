@@ -53,11 +53,14 @@ def get_images(step: str = "1", image: Optional[str] = None, limits: Optional[di
         res = {}
         
         for category_name in oracul_outp: 
-            res[category_name] = {
-                "name": oracul_outp[category_name]['name'],
-                "image": resolve_path(oracul_outp[category_name]['name'] + '.jpeg', category_name), 
-                "link": oracul_outp[category_name]['link'],
-                "price": oracul_outp[category_name]['price'],
-                "limits": limits[category_name]
-            }
+            if oracul_outp[category_name]['price'] is None: # not found obj
+                res[category_name] = oracul_outp[category_name]
+            else:
+                res[category_name] = {
+                    "name": oracul_outp[category_name]['name'],
+                    "image": resolve_path(oracul_outp[category_name]['name'] + '.jpeg', category_name), 
+                    "link": oracul_outp[category_name]['link'],
+                    "price": oracul_outp[category_name]['price'],
+                    "limits": limits[category_name]
+                }
         return res
