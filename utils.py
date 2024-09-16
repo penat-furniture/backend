@@ -44,7 +44,7 @@ def get_images(step: str = "1", image: Optional[str] = None, limits: Optional[di
         return [
             {
                 "name": name,
-                "image": resolve_path(name, "chair"),
+                "image": resolve_path(name + '.jpeg', "chair"),
             }
             for name in oracul_outp
         ]
@@ -55,7 +55,7 @@ def get_images(step: str = "1", image: Optional[str] = None, limits: Optional[di
         for category_name in oracul_outp: 
             res['images'][category_name] = {
                 "name": oracul_outp[category_name]['name'],
-                "image": resolve_path(oracul_outp[category_name]['name'], category_name), 
+                "image": resolve_path(oracul_outp[category_name]['name'] + '.jpeg', category_name), 
                 "link": oracul_outp[category_name]['link'],
                 "price": str(oracul_outp[category_name]['price']),
                 "limits": limits
