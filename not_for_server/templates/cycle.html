@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select an Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 150vh;
+        }
+        .header {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header button {
+            padding: 5px 15px;
+            font-size: 16px;
+        }
+        .grid-container {
+            flex: 1 1 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            gap: 10px;
+            padding: 10px;
+            overflow-y: auto; /* Allow vertical scrolling */
+        }
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0; /* Optional: background color */
+            height: 45vh; /* Set a fixed height for grid items */
+        }
+        .grid-item img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+        }
+        .title {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 14px;
+            padding: 4px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        function selectImage(index) {
+            document.getElementById('selected_index').value = index;
+            document.getElementById('image_form').submit();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Select an Image</h1>
+            <form action="{{ url_for('index') }}" method="get">
+                <button type="submit">Restart</button>
+            </form>
+        </div>
+        <form id="image_form" action="{{ url_for('cycle') }}" method="post">
+            <input type="hidden" name="selected_index" id="selected_index" value="">
+            <div class="grid-container">
+                {% for idx, image_name, title in images_and_titles %}
+                <div class="grid-item" onclick="selectImage({{ loop.index0 }})">
+                    <img src="{{ url_for('serve_image', filename=image_name) }}" alt="{{ idx }}">
+                    <div class="title">{{ title }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</body>
+</html>

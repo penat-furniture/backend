@@ -1,0 +1,9 @@
+torch
+numpy
+pandas 
+chromadb==0.5.5
+Flask==3.0.3
+open_clip_torch==2.26.1
+pillow==10.4.0
+tqdm
+matplotlib

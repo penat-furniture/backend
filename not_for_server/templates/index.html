@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Category</title>
+</head>
+<body>
+    <h1>Select a Category</h1>
+    <form action="{{ url_for('select_category') }}" method="post">
+        {% for item in possible_items %}
+            <input type="radio" name="item_index" value="{{ loop.index0 }}" id="item{{ loop.index0 }}" required>
+            <label for="item{{ loop.index0 }}">{{ item }}</label><br>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
