@@ -58,6 +58,6 @@ def get_images(step: str = "1", image: Optional[str] = None, limits: Optional[di
                 "image": resolve_path(oracul_outp[category_name]['name'] + '.jpeg', category_name), 
                 "link": oracul_outp[category_name]['link'],
                 "price": str(oracul_outp[category_name]['price']),
-                "limits": limits
+                "limits": limits[category_name]
             }
         return res
