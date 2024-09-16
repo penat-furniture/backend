@@ -19,7 +19,7 @@ global_oracul = PenatOracul(
     price_csv_path=PATH_TO_LINKS,
     not_found_final_res={
         "name": "Не найдено",
-        "image": "image": resolve_path("not_found.png", "icons"),
+        "image": resolve_path("not_found.png", "icons"),
         "link": None,
         "price": None,
         "limits": {"min": 0, "max": 1e6, "loaded": True},
