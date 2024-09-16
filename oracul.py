@@ -79,6 +79,7 @@ class PenatOracul():
                 break
         if found_element is not None:
             res = candidates[candidates['name'] == closest_id].iloc[0][['name', 'price', 'link']].to_dict()
+            res['price'] = str(res['price'])
             return res
         else:
             return self.not_found_final_res
