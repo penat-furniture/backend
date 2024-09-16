@@ -50,10 +50,10 @@ def get_images(step: str = "1", image: Optional[str] = None, limits: Optional[di
         ]
     else:
         oracul_outp = global_oracul.run_final_step(image=image, limits=limits)
-        res = {'images': {}}
+        res = {}
         
         for category_name in oracul_outp: 
-            res['images'][category_name] = {
+            res[category_name] = {
                 "name": oracul_outp[category_name]['name'],
                 "image": resolve_path(oracul_outp[category_name]['name'] + '.jpeg', category_name), 
                 "link": oracul_outp[category_name]['link'],
