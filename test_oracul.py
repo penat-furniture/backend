@@ -26,7 +26,7 @@ if __name__ == "__main__":
             "min": 0,
             "max": 91990
         },
-        "plant": {
+        "potted_plant": {
             "min": 0,
             "max": 40000
         },
@@ -34,7 +34,7 @@ if __name__ == "__main__":
             "min": 0,
             "max": 2088000
         },
-        "table": {
+        "dining_table": {
             "min": 0,
             "max": 2800000
         },
@@ -48,6 +48,6 @@ if __name__ == "__main__":
         }
     }
     
-    print(oracul.run_general_step(1))
-    print(oracul.run_general_step(2, 'AkVFEYusMuXdl1Z'))
-    print(oracul.run_final_step('AkVFEYusMuXdl1Z', limits=full_lims))
+    print("STEP 1", oracul.run_general_step(1))
+    print("STEP 2", oracul.run_general_step(2, 'AkVFEYusMuXdl1Z'))
+    print("STEP 3", oracul.run_final_step('AkVFEYusMuXdl1Z', limits=full_lims))

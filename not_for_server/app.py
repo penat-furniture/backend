@@ -14,7 +14,7 @@ from oracul import PenatOracul  # Import the PenatOracul class
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-CHROMA_CACHE_PATH = "./data/chroma_cache"
+CHROMA_CACHE_PATH = "/Users/ksc/penat/chroma_cache"
 LINKS_CSV_PATH = "./data/links.csv"
 IMAGES_DATA_PATH= '/Users/ksc/penat/data'
 
@@ -30,7 +30,7 @@ full_lims = {
         "min": 0,
         "max": 91990
     },
-    "plant": {
+    "potted_plant": {
         "min": 0,
         "max": 40000
     },
@@ -38,7 +38,7 @@ full_lims = {
         "min": 0,
         "max": 2088000
     },
-    "table": {
+    "dining_table": {
         "min": 0,
         "max": 2800000
     },
