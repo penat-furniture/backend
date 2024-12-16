@@ -6,8 +6,8 @@ import chromadb
 from oracul import PenatOracul
 
 SERVER_URL = os.getenv("SERVER_URL", "https://cdn.penat.su")
-PATH_TO_LINKS = '/Users/ksc/penat/new_data/links.csv'
-PATH_TO_CHROMA_CACHE = '/Users/ksc/penat/room_update_chroma_cache'
+PATH_TO_LINKS = './data/links.csv'
+PATH_TO_CHROMA_CACHE = './data/chroma_cache'
 AVAILABLE_CATEGORIES = ['bed', 'chair', 'couch', 'table', 'plant', 'closet'] # chroma already has closet
 
 def resolve_path(name: str, image_type: str = "chair") -> str:
