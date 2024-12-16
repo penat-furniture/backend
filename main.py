@@ -34,17 +34,14 @@ async def root():
 @app.post("/api/suggest/")
 async def suggest(data: Optional[dict] = None):
     image = data.get("image", None)
+    print("GOT IMAGE:", image)
     step = data.get("step", "1")
+    room = data.get("room")
+    if image == '[object Object]':
+        print("Мать ебал")
+        image = None
     limits = data.get("limits", None)
-    if limits is None:
-        limits = {
-            "chair": {"min": 0, "max": 1e10},
-            "bed": {"min": 0, "max": 1e10},
-            "plant": {"min": 0, "max": 1e10},
-            "couch": {"min": 0, "max": 1e10},
-            "table": {"min": 0, "max": 1e10},
-        }
-    images = utils.get_images(step, image, limits)
+    images = utils.get_images(room, step, image, limits)
     return {
         "images": images,
     }

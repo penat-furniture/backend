@@ -64,6 +64,17 @@
             text-align: center;
             box-sizing: border-box;
         }
+        .resample-container {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        .resample-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
     </style>
     <script>
         function selectImage(index) {
@@ -91,6 +102,12 @@
                 {% endfor %}
             </div>
         </form>
+        <div class="resample-container">
+            <form id="resample_form" action="{{ url_for('cycle') }}" method="post">
+                <input type="hidden" name="selected_index" value="-1">
+                <button type="submit">Resample</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -22,7 +22,9 @@ IMAGES_DATA_PATH= '/Users/ksc/penat/data'
 chroma_client = chromadb.PersistentClient(path=CHROMA_CACHE_PATH)
 assert 'common' in [x.name for x in chroma_client.list_collections()], f"bad client, it has only collections: {[x.name for x in chroma_client.list_collections()]}"
 
-possible_items = ['bed', 'chair', 'closet', 'couch', 'dining_table', 'potted_plant']
+possible_items = ['bed', 'chair', 'closet', 'couch', 'dining_table', 'potted_plant', 'all']
+PANEL_SIZE = 4
+TOTAL_STEPS = 6
 
 # Define the full limits for the final step
 full_lims = {
@@ -77,17 +79,17 @@ def select_category():
             "limits": {"min": 0, "max": 1e6, "loaded": True}
         },
         main_type=main_type,
-        panel_size=16  # Ensure panel_size is 16
+        panel_size=PANEL_SIZE  # Ensure panel_size is 16
     )
     # Store necessary parameters in session
-    session['panel_size'] = 16
+    session['panel_size'] = PANEL_SIZE
 
     # Get the starting images
     image_ids = oracul.run_general_step(step_n=1)
     session['image_ids'] = image_ids
     session['oracul_params'] = {
         'main_type': main_type,
-        'panel_size': 16
+        'panel_size': PANEL_SIZE
     }
 
     return redirect(url_for('cycle'))
@@ -119,19 +121,24 @@ def cycle():
 
     if request.method == 'POST':
         selected_index = int(request.form['selected_index'])
+        
         image_ids = session['image_ids']
-        selected_image = image_ids[selected_index]
-        session['selected_image'] = selected_image
-        step = session.get('step', 1) + 1  # Increment step
-        session['step'] = step
+        if selected_index != -1:
+            selected_image = image_ids[selected_index]
+            session['selected_image'] = selected_image
+            step = session.get('step', 1) + 1  # Increment step
+            session['step'] = step
+        else:
+            selected_image = session['selected_image']
+            step = session.get('step', 1)
 
-        if step <= 3:
+        if step <= TOTAL_STEPS:
             # Get the next set of images
             image_ids = oracul.run_general_step(step_n=step, image=selected_image)
             session['image_ids'] = image_ids
 
             # Prepare image titles
-            image_titles = [f"{i} | " for i in range(len(image_ids))]
+            image_titles = [f"{i} | step {step}" for i in range(len(image_ids))]
 
             images_and_titles = zip(image_ids, image_ids, image_titles)  # IDs are used for filenames and display
 
@@ -150,7 +157,7 @@ def cycle():
         image_ids = session.get('image_ids')
         step = session.get('step', 1)
 
-        if image_ids is None or step > 3:
+        if image_ids is None or step > TOTAL_STEPS:
             # Start from step 1 if no image_ids in session or step exceeded
             image_ids = oracul.run_general_step(step_n=1)
             session['image_ids'] = image_ids
